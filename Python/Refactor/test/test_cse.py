@@ -1,0 +1,64 @@
+import unittest
+from Refactor.common.base_test import BaseTest
+from Refactor.pages.login_page import LoginPage
+from Refactor.pages.phones_pdas_page import PhonesPDAsPage
+from Refactor.pages.cart_page import CartPage
+from Refactor.pages.checkout_page import CheckoutPage
+from Refactor.pages.order_success_page import OrderSuccessPage
+
+
+class CSETest(BaseTest):
+
+    def test_buy_item(self):
+        # Data Setup
+        # Possible DATA SET
+        item_name_list = 'iPhone'
+        price = f"{101.00:.2f}"
+        rate = f"{5.00:.2f}"
+        total_price = f"{(float(price) + float(rate)):.2f}"
+
+        # Page Objects Initialization
+        login_page = LoginPage(self.driver)
+        phones_page = PhonesPDAsPage(self.driver)
+        cart_page = CartPage(self.driver)
+        checkout_page = CheckoutPage(self.driver)
+        success_page = OrderSuccessPage(self.driver)
+
+        # 1. Login
+        login_page.login(BaseTest.EMAIL, BaseTest.PASS)
+        self.assertTrue(login_page.is_my_account_displayed(), "Assert My Account page es visible")
+
+        # 2. Web Page: Phones & PDAs
+        phones_page.go_to_phones_category()
+        self.assertEqual(item_name_list, phones_page.get_item_name(item_name_list), "Verify name item")
+
+        phones_page.select_item(item_name_list)
+        self.assertEqual(item_name_list, phones_page.get_detail_item_name(item_name_list), "Verify name item detail")
+        self.assertEqual(f'${price}', phones_page.get_item_price(), "Verify price item detail")
+
+        phones_page.add_to_cart()
+        self.assertTrue(phones_page.is_success_message_displayed(), "Success message not visible")
+        phones_page.open_cart()
+
+        # 3. Web Page: checkout/cart
+        self.assertEqual(f'${price}', cart_page.get_cart_item_price(price), "Verify price item in cart")
+        cart_page.proceed_to_checkout()
+
+        # 4. Web Page: checkout/checkout
+        checkout_page.complete_checkout_steps()
+        self.assertEqual(item_name_list, checkout_page.get_confirmed_item_name(), "Verify name item in summary")
+        self.assertEqual(f'${total_price}', checkout_page.get_confirmed_total_price(total_price), "Verify total price")
+        checkout_page.confirm_order()
+
+        # 5. Order Success Validation
+        self.assertEqual('Your order has been placed!', success_page.get_success_header(), "Order header mismatch")
+        self.assertEqual('Your order has been successfully processed!', success_page.get_success_message_1(),
+                         "Message 1 mismatch")
+        self.assertEqual('Thanks for shopping with us online!', success_page.get_success_message_2(),
+                         "Message 2 mismatch")
+
+        success_page.click_continue()
+
+
+if __name__ == '__main__':
+    unittest.main()

@@ -1,8 +1,9 @@
 import unittest
 
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
 
-from configuration.config import Configuration as Config
+from Refactor.common.config import Configuration as Config
 
 
 class BaseTest(unittest.TestCase):
@@ -26,7 +27,13 @@ class BaseTest(unittest.TestCase):
 
     def setUp(self):
 
-        self.driver = Config.create_chrome_driver()
+        options = Options()
+        options.add_argument("--headless")
+        options.add_argument("--no-sandbox")
+        options.add_argument("--disable-dev-shm-usage")
+        options.add_argument("--window-size=1920,1080")
+
+        self.driver = Config.create_chrome_driver(options)
         self.wait = WebDriverWait(self.driver, 60)
         self.driver.get(self.URL_LOGIN)
         self.driver.maximize_window()

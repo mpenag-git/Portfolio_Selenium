@@ -1,10 +1,12 @@
 import unittest
+import HtmlTestRunner
 from Refactor.common.base_test import BaseTest
 from Refactor.pages.login_page import LoginPage
 from Refactor.pages.phones_pdas_page import PhonesPDAsPage
 from Refactor.pages.cart_page import CartPage
 from Refactor.pages.checkout_page import CheckoutPage
 from Refactor.pages.order_success_page import OrderSuccessPage
+from Refactor.common.config import Configuration as Config
 
 
 class CSETest(BaseTest):
@@ -57,8 +59,11 @@ class CSETest(BaseTest):
         self.assertEqual('Thanks for shopping with us online!', success_page.get_success_message_2(),
                          "Message 2 mismatch")
 
+        target_path = Config.get_screenshot_file_path("dashboard")
+        self.driver.save_screenshot(target_path)
         success_page.click_continue()
 
 
 if __name__ == '__main__':
-    unittest.main()
+    #unittest.main()
+    unittest.main(testRunner=HtmlTestRunner.HTMLTestRunner(output=r'\reportHtmlRunner'))

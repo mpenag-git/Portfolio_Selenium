@@ -1,6 +1,7 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class BasePage:
     def __init__(self, driver, timeout=15):
         self.driver = driver
@@ -11,6 +12,9 @@ class BasePage:
 
     def find_visible(self, locator):
         return self.wait.until(EC.visibility_of_element_located(locator))
+
+    def click_BTN_PAYMENT_METHOD(self, locator):
+        self.wait.until(EC.visibility_of_element_located(locator)).click()
 
     def click(self, locator):
         self.wait.until(EC.element_to_be_clickable(locator)).click()

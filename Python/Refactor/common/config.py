@@ -21,6 +21,7 @@ class Configuration:
 
     __CHROME_DRIVER_PATH = modify_name_for_windows(os.path.join(__DRIVER_DIR, "chromedriver"))
     __GECKO_DRIVER_PATH = modify_name_for_windows(os.path.join(__DRIVER_DIR, "geckodriver"))
+    FileCSV= os.path.join(__FILES_DIR, "items.csv")
 
     @classmethod
     def get_screenshot_file_path(cls, file_name):

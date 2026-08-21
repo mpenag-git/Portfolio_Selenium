@@ -5,7 +5,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from Refactor.common.config import Configuration as Config
 
-
 class BaseTest(unittest.TestCase):
     URL_BASE = "http://opencart.abstracta.us"
     URL_LOGIN = URL_BASE + "/index.php?route=account/login"
@@ -26,15 +25,15 @@ class BaseTest(unittest.TestCase):
         self.__driver = driver_instance
 
     def setUp(self):
-
+        '''
         options = Options()
         options.add_argument("--headless")
         options.add_argument("--no-sandbox")
         options.add_argument("--disable-dev-shm-usage")
         options.add_argument("--window-size=1920,1080")
-
-        self.driver = Config.create_chrome_driver(options)
-        self.wait = WebDriverWait(self.driver, 60)
+        '''
+        self.driver = Config.create_chrome_driver()
+        self.wait = WebDriverWait(self.driver, 15)
         self.driver.get(self.URL_LOGIN)
         self.driver.maximize_window()
 

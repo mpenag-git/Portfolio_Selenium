@@ -1,5 +1,6 @@
 import unittest
 import HtmlTestRunner
+from Refactor.common.CSVReader import CSV_Reader
 from Refactor.common.base_test import BaseTest
 from Refactor.pages.login_page import LoginPage
 from Refactor.pages.phones_pdas_page import PhonesPDAsPage
@@ -12,11 +13,14 @@ from Refactor.common.config import Configuration as Config
 class CSETest(BaseTest):
 
     def test_buy_item(self):
-        # Data Setup
-        # Possible DATA SET
-        item_name_list = 'iPhone'
-        price = f"{101.00:.2f}"
-        rate = f"{5.00:.2f}"
+        # Data Setup / DATA SET items.csv
+        # Possible
+        reader = CSV_Reader(Config.FileCSV)
+        field = reader.read_random_row()
+
+        item_name_list = field["item"]
+        price = f"{(field['price']):.2f}"
+        rate = f"{(field['rate']):.2f}"
         total_price = f"{(float(price) + float(rate)):.2f}"
 
         # Page Objects Initialization

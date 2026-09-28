@@ -13,15 +13,15 @@ class Locators:
     # Phones & PDAs / Item Detail
     @staticmethod
     def item_by_name(name):
-        return (By.XPATH, f"//div[@class='caption']//a[contains(text(),'{name}')]")
+        return By.XPATH, f"//div[@class='caption']//a[contains(text(),'{name}')]"
 
     @staticmethod
     def item_img_by_name(name):
-        return (By.XPATH, f"//div[@class='image']//img[@title='{name}']")
+        return By.XPATH, f"//div[@class='image']//img[@title='{name}']"
 
     @staticmethod
     def item_name_detail(name):
-        return (By.XPATH, f"(//h1[normalize-space()='{name}'])[1]")
+        return By.XPATH, f"(//h1[normalize-space()='{name}'])[1]"
 
     PRICE_WEB = (By.XPATH, "//ul[@class='list-unstyled']//h2")
     BTN_ADD_TO_CART = (By.ID, "button-cart")
@@ -32,7 +32,7 @@ class Locators:
     # Cart Page
     @staticmethod
     def item_price_checkout(price):
-        return (By.XPATH, f"(//td[contains(text(),'{price}')])[7]")
+        return By.XPATH, f"(//td[contains(text(),'{price}')])[7]"
 
     BTN_CHECKOUT = (By.CSS_SELECTOR, "a[class='btn btn-primary']")
 
@@ -46,7 +46,7 @@ class Locators:
 
     @staticmethod
     def confirm_total_price(price):
-        return (By.XPATH, f"(//td[normalize-space() = '${price}'])[1]")
+        return By.XPATH, f"(//td[normalize-space() = '${price}'])[1]"
 
     BTN_CONFIRM_ORDER = (By.ID, "button-confirm")
 

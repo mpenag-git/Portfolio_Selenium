@@ -11,6 +11,8 @@ class BaseTest(unittest.TestCase):
     URL_LOGOUT = URL_BASE + "/index.php?route=account/logout"
     EMAIL = "test_automon_01@yopmail.com"
     PASS = "test1234"
+    COUNTRY= "Mexico"
+    STATE = "Distrito Federal"
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

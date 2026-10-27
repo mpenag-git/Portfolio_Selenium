@@ -34,6 +34,20 @@ class Locators:
     def item_price_checkout(price):
         return By.XPATH, f"(//td[contains(text(),'{price}')])[7]"
 
+    BTN_SHIPPING_TAXES = (By.XPATH, "//a[normalize-space()='Estimate Shipping & Taxes']")
+    CBO_COUNTRY =(By.ID, "input-country")
+    CBO_STATE_LIST= (By.ID,"input-zone") #Elemento que contiene la lista de estados
+
+    @staticmethod
+    def item_combo_selector(state):
+        return By.XPATH, f"//option[contains(text(),'{state}')]"
+
+    CBO_ZIP = (By.ID,"input-postcode")
+    BTN_QUOTES = (By.ID,"button-quote")
+    RDO_RATE = (By.NAME,"shipping_method")
+    BTN_SHIPPING = (By.ID,"button-shipping")
+    LBL_SUCCESS_SHIPPING = (By.XPATH,"//div[@class='alert alert-success alert-dismissible' and not(@class='close')]")
+    #"//div[contains(text(),'Success: Your shipping estimate has been applied!')]")
     BTN_CHECKOUT = (By.CSS_SELECTOR, "a[class='btn btn-primary']")
 
     # Checkout Page
@@ -46,12 +60,13 @@ class Locators:
 
     @staticmethod
     def confirm_total_price(price):
+        print(f"(//td[normalize-space() = '${price}'])[1]")
         return By.XPATH, f"(//td[normalize-space() = '${price}'])[1]"
 
     BTN_CONFIRM_ORDER = (By.ID, "button-confirm")
 
     # Order Success Page
     LBL_SUCCESS_HEADER = (By.XPATH, "(//h1[normalize-space()='Your order has been placed!'])")
-    LBL_SUCCESS_MSG_1 = (By.XPATH, "//p[normalize-space()='Your order has been successfully processed!']")
-    LBL_SUCCESS_MSG_2 = (By.XPATH, "//p[normalize-space()='Thanks for shopping with us online!']")
+    LBL_SUCCESS_PROCESSED = (By.XPATH, "//p[normalize-space()='Your order has been successfully processed!']")
+    LBL_SUCCESS_THANKS = (By.XPATH, "//p[normalize-space()='Thanks for shopping with us online!']")
     BTN_CONTINUE = (By.CLASS_NAME, "btn-primary")

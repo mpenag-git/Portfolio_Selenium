@@ -1,5 +1,6 @@
 from Refactor.common.base_page import BasePage
 from Refactor.common.locators import Locators as lctrs
+import time
 
 class CheckoutPage(BasePage):
     def complete_checkout_steps(self):

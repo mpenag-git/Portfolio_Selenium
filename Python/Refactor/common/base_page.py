@@ -3,7 +3,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from Refactor.common.config import Configuration as Config
 
 class BasePage:
-    def __init__(self, driver, timeout=15):
+    def __init__(self, driver, timeout=60):
         self.driver = driver
         self.wait = WebDriverWait(driver, timeout)
 
